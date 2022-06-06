@@ -5,15 +5,19 @@ import { Layout } from './components/Layout/Layout';
 import { HomePage } from './pages/HomePage.jsx';
 import { AddContactPage } from './pages/AddContactPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="add" element={<AddContactPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <>
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="add" element={<AddContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

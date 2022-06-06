@@ -1,20 +1,25 @@
-import { useState } from "react";
-import { nanoid } from "nanoid";
-import { getRandomStatus } from "../../services/utils";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts-slice";
-import { FaUserTie } from "react-icons/fa";
-import { AiFillMessage } from "react-icons/ai";
-import { MdPersonAddAlt } from "react-icons/md";
-import { Form, Label, Input, Button } from "./AddContactForm.styled";
+import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import { getRandomStatus } from '../../services/utils';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contacts-slice';
+import { FaUserTie } from 'react-icons/fa';
+import { AiFillMessage } from 'react-icons/ai';
+import { MdPersonAddAlt } from 'react-icons/md';
+import { toast } from 'react-hot-toast';
+import { Form, Label, Input, Button } from './AddContactForm.styled';
 
 export const AddContactForm = () => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    if (e.currentTarget.value === '') {
+      toast.error('Fill the form fields');
+      return;
+    }
     const status = await getRandomStatus();
     const newContact = {
       id: nanoid(3),
@@ -23,19 +28,21 @@ export const AddContactForm = () => {
       age,
       status,
     };
-    console.log("newContact: ", newContact);
+    console.log('newContact: ', newContact);
+
     dispatch(addContact(newContact));
-    setName("");
-    setAge("");
+    toast.success(`Contact ${name} added`);
+    setName('');
+    setAge('');
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.currentTarget;
     switch (name) {
-      case "name":
+      case 'name':
         setName(value);
         break;
-      case "age":
+      case 'age':
         setAge(value);
         break;
       default:
