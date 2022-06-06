@@ -16,10 +16,7 @@ export const AddContactForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (e.currentTarget.value === '') {
-      toast.error('Fill the form fields');
-      return;
-    }
+
     const status = await getRandomStatus();
     const newContact = {
       id: nanoid(3),
@@ -29,6 +26,9 @@ export const AddContactForm = () => {
       status,
     };
     console.log('newContact: ', newContact);
+    if (newContact.name === '' || newContact.age === '') {
+      return toast.error('Please, fill the form fields');
+    }
 
     dispatch(addContact(newContact));
     toast.success(`Contact ${name} added`);

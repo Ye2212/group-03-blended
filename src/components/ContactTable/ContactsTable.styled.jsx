@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Table = styled.table`
-  width: 100%;
+  margin: 0 auto;
+  width: 70%;
   text-align: center;
   background-color: #7b7b7b;
   border-spacing: 0;
